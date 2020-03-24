@@ -5,7 +5,7 @@ void main() => runApp(MaterialApp(
   initialRoute: "/",
   routes: {
     "/": (context) => Loading(),
-    // "/today": (context) => Woday(),
+    // "/today": (context) => today(),
     // "/week": (context) => Week(),
   },
 ));
