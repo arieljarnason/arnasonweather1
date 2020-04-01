@@ -2,16 +2,16 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
  
-
 class WorldWeather {
 
-  String location;  //location where to get weather info for
-  String time;      //time in that location 
-  String url;       //url for api ending
+  String location, main, url, description, iconUrl, sunrise, sunset;  
+  var temp, tempMin, tempMax, pressure, humidity, feelsLike,
+      windSpeed, windDirection;
+  //location where to get weather info for
+  // String time;      
+  //url for api ending
   bool isDaytime;   //check whether day or night
-  // set string f stuff
   
-  // location og info sem ég vil sýna úr veðurs json info
   WorldWeather({ this.location, this.url });
 
   Future<void> getWeather() async {
@@ -23,46 +23,48 @@ class WorldWeather {
 
       // map all the data from the api and set up in variables
       Map data = jsonDecode(response.body);
-      
+      // print(data);
       List weather = data["weather"];
       Map weathermap = weather[0];
-      
-      String main = weathermap["main"];
-      String description = weathermap["description"];
-      String iconUrl = weathermap["icon"];
-
-      Map maindata = data["main"];
-      var temp = maindata["temp"];
-      var tempMin = maindata["temp_min"];
-      var tempMax = maindata["temp_max"];
-      var pressure = maindata["pressure"];
-      var humidity = maindata["humidity"];
-      var feelsLikse = maindata["feels_like"];
- 
-      // print(maindata["humidity"]);
-      // print("windspeed m/s: "+wind["speed"].toString());
-      //windspeed m/s
-      //wind direction degrees
-      // print(windSpeed);
-
       Map wind = data["wind"];
-      String windSpeed = wind["speed"].toString();
-      String windDirection = wind["deg"].toString();
+      Map maindata = data["main"];
+      
+      description     = weathermap["description"];
+      iconUrl         = weathermap["icon"];      
+      main            = weathermap["main"];
+      temp            = maindata["temp"];
+      tempMin         = maindata["temp_min"];
+      tempMax         = maindata["temp_max"];
+      pressure        = maindata["pressure"];
+      humidity        = maindata["humidity"];
+      feelsLike       = maindata["feels_like"];
+      windSpeed       = wind["speed"];
+      windDirection   = wind["deg"];
+      // String windSpeed = wind["speed"].toString();
+      // String windDirection = wind["deg"].toString();
 
-
-      var sys = data["sys"];
-      var sunriseNum = sys["sunrise"];
-      var sunsetNum = sys["sunset"];
+      var sys         = data["sys"];
+      var sunriseNum  = sys["sunrise"];
+      var sunsetNum   = sys["sunset"];
 
       var sunriseTime = new DateTime.fromMillisecondsSinceEpoch(sunriseNum * 1000);
-      String sunriseTimeShort = 
+      sunrise = 
       (sunriseTime.hour.toString()+":"+sunriseTime.minute.toString());
 
-      var sunsetTime = new DateTime.fromMillisecondsSinceEpoch(sunsetNum * 1000);
-      String sunsetTimeShort = 
+      var sunsetTime  = new DateTime.fromMillisecondsSinceEpoch(sunsetNum * 1000);
+      sunset = 
       (sunsetTime.hour.toString()+":"+sunsetTime.minute.toString());
 
+      var now = new DateTime.now();
+      if (now.hour > sunriseTime.hour && now.hour < sunsetTime.hour){
+        isDaytime = true;
+      }
+      else {
+        isDaytime = false;
+      }
+      // print(isDaytime);
 
+      // print(now); 
 
 //       let unix_timestamp = 1549312452
 // // Create a new JavaScript Date object based on the timestamp
@@ -87,7 +89,7 @@ class WorldWeather {
     catch(e) {
 
       print("Caught Error: $e");
-      time = "Could not get time data";
+      main = "Could not get weather data";
 
     }
 

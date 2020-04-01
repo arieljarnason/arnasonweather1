@@ -9,6 +9,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   String _res = 'Unknown';
+
   //api keys
   //temp one:
   String apikey = '12b6e28582eb9298577c734a31ba9f4f';
@@ -24,6 +25,25 @@ class _LoadingState extends State<Loading> {
       url: "Reykjavik&appid=$apikey");
     await myinstance.getWeather();
 
+    Navigator.pushNamed(context, "/today", arguments: {
+        "location": myinstance.location,
+        "main": myinstance.main,
+        "description": myinstance.description,
+        "iconUrl": myinstance.iconUrl,
+        "temp": myinstance.temp,
+        "tempMin": myinstance.tempMin,
+        "tempMax": myinstance.tempMax,
+        "pressure": myinstance.pressure,
+        "humidity": myinstance.humidity,
+        "feelsLike": myinstance.feelsLike,
+        "windSpeed": myinstance.windSpeed,
+        "windDirection": myinstance.windDirection,
+        "sunrise": myinstance.sunrise,
+        "sunset": myinstance.sunset,
+        "isDaytime": myinstance.isDaytime
+        // "isDaytime": myinstance.isDaytime,
+      });
+    }
     // setja upp instance af mínu weather object
     //
     //api example city name:
@@ -36,18 +56,44 @@ class _LoadingState extends State<Loading> {
     // https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22
 
     //senda instance yfir í today
-  }
+
 
   @override
   void initState() {
     super.initState();
     setupWorldWeather();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+          child: Scaffold(
+        body: Column(
+          children: <Widget>[
+                SizedBox(height: 90.0),
+                Image(image: AssetImage("assets/logo1.png"), height: 100),
+                SizedBox(height: 110.0),
+                SpinKitPulse(
+                color: Colors.blueGrey[200]
+                ),
+                // Text(
+                //     "  Loading...",
+                //     style: TextStyle(
+                //       fontSize: 18.0,
+                //       color: Colors.blueGrey[700],
+                //     )
+                // ),
+                SizedBox(height: 10.0),
+                
+              ]
+        )
+      ),
+    );
+  }
+}
     // ws = new WeatherStation(apikey);
     // initPlatformState();
     // setupWeather();
-  }
-
   // Future<void> initPlatformState() async{
   //   quearyWeather();
   // }
@@ -73,28 +119,4 @@ class _LoadingState extends State<Loading> {
   // }
 
 
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-          child: Scaffold(
-        body: Column(
-          children: <Widget>[
-                Image(image: AssetImage("assets/logo1.png"), height: 200),
-                SizedBox(height: 140.0),
-                Text(
-                    "Loading...",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.blueGrey[700],
-                    )
-                ),
-                SizedBox(height: 10.0),
-                SpinKitPulse(
-                color: Colors.blueGrey[200]
-                )
-              ]
-        )
-      ),
-    );
-  }
-}
+  
