@@ -1,5 +1,46 @@
 import 'package:flutter/material.dart';
 
+class SwitchWidget extends StatefulWidget {
+  @override
+  _SwitchWidgetState createState() => _SwitchWidgetState();
+}
+
+class _SwitchWidgetState extends State<SwitchWidget> {
+  @override
+  Widget build(BuildContext context) {
+    bool switchControl = false;
+    var textHolder = 'Switch is OFF';
+
+    void toggleSwitch(bool value){
+
+      if(switchControl == false){
+        setState((){
+            switchControl = true;
+          });
+          print('Switch is on');
+          // my code for C / F
+        }
+      else{
+        setState((){
+          switchControl = false;
+        });
+        print('Switch is off');
+        // my code for c / f
+        }
+      }
+      @override
+      Widget build(BuildContext context) {
+        return Switch(
+              onChanged: toggleSwitch,
+              value: switchControl,
+              activeColor: Colors.blue,
+              activeTrackColor: Colors.green,
+              inactiveThumbColor: Colors.white,
+              inactiveTrackColor: Colors.grey,
+            );
+      }
+    }
+  }
 
 class Today extends StatefulWidget {
   @override
@@ -66,13 +107,40 @@ class _TodayState extends State<Today> {
       ),
           
           
-          drawer: Drawer(
-            child: ListView(
-              children: <Widget>[
-                ListTile()
-              ],
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader( 
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/logo1.png"), 
+                )
+              ),
+              child: Text(
+                "Weather",
+                style: TextStyle(
+                  fontSize: 40.0
+                )
+              ),
             ),
-          ),       
+            // SizedBox(height: 20.0),
+            ListTile(
+              title: Text("Today's weather"),
+              trailing: Icon(Icons.cloud)
+            ),
+            ListTile(
+              title: Text("The week's weather"),
+              trailing: Icon(Icons.view_week)
+            ),
+            Divider(),
+            ListTile(
+              title: Text("C° / F°"),
+              // trailing: SwitchWidget()
+            ),
+          ],
+        ),
+      ),       
           
           
           body: Center(
