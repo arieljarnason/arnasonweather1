@@ -12,14 +12,14 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/debug/AndroidManifest.xml:6:5-66
-14-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/debug/AndroidManifest.xml:6:22-64
+14-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-15-->[:location] /Users/arnason/Documents/FlutterProjects/arnason_weather/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-81
-15-->[:location] /Users/arnason/Documents/FlutterProjects/arnason_weather/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-78
+15-->[:location] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-81
+15-->[:location] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-78
 16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-16-->[:location] /Users/arnason/Documents/FlutterProjects/arnason_weather/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-79
-16-->[:location] /Users/arnason/Documents/FlutterProjects/arnason_weather/build/location/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-76
+16-->[:location] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-79
+16-->[:location] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-76
 17    <!--
 18 io.flutter.app.FlutterApplication is an android.app.Application that
 19         calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -28,39 +28,39 @@
 22         FlutterApplication and put your custom class here.
 23    -->
 24    <application
-24-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:8:5-29:19
+24-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:8:5-29:19
 25        android:name="io.flutter.app.FlutterApplication"
-25-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:9:9-57
+25-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:9:9-57
 26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-26-->[androidx.core:core:1.0.0] /Users/arnason/.gradle/caches/transforms-2/files-2.1/9611c12a11fb129c2d552e558222aed1/core-1.0.0/AndroidManifest.xml:22:18-86
+26-->[androidx.core:core:1.0.0] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\9611c12a11fb129c2d552e558222aed1\core-1.0.0\AndroidManifest.xml:22:18-86
 27        android:debuggable="true"
 28        android:icon="@mipmap/ic_launcher"
-28-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:11:9-43
+28-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:11:9-43
 29        android:label="arnason_weather" >
-29-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:10:9-40
+29-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:10:9-40
 30        <activity
-30-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:12:9-23:20
+30-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:12:9-23:20
 31            android:name="com.example.arnason_weather.MainActivity"
-31-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:13:13-41
+31-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:13:13-41
 32            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-32-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:16:13-163
+32-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:16:13-163
 33            android:hardwareAccelerated="true"
-33-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:17:13-47
+33-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:17:13-47
 34            android:launchMode="singleTop"
-34-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:14:13-43
+34-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:14:13-43
 35            android:theme="@style/LaunchTheme"
-35-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:15:13-47
+35-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:15:13-47
 36            android:windowSoftInputMode="adjustResize" >
-36-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:18:13-55
+36-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:18:13-55
 37            <intent-filter>
-37-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:19:13-22:29
+37-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:19:13-22:29
 38                <action android:name="android.intent.action.MAIN" />
-38-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:20:17-68
-38-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:20:25-66
+38-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:20:17-68
+38-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:20:25-66
 39
 40                <category android:name="android.intent.category.LAUNCHER" />
-40-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:21:17-76
-40-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:21:27-74
+40-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:21:17-76
+40-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:21:27-74
 41            </intent-filter>
 42        </activity>
 43        <!--
@@ -68,27 +68,27 @@
 45             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 46        -->
 47        <meta-data
-47-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:26:9-28:33
+47-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:26:9-28:33
 48            android:name="flutterEmbedding"
-48-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:27:13-44
+48-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:27:13-44
 49            android:value="2" />
-49-->/Users/arnason/Documents/FlutterProjects/arnason_weather/android/app/src/main/AndroidManifest.xml:28:13-30
+49-->E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:28:13-30
 50
 51        <activity
-51-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:23:9-26:75
+51-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\dd4e2451257460b28e9874440d22e2b5\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
 52            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-52-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:24:13-79
+52-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\dd4e2451257460b28e9874440d22e2b5\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
 53            android:exported="false"
-53-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:25:13-37
+53-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\dd4e2451257460b28e9874440d22e2b5\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
 54            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-54-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:26:13-72
+54-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\dd4e2451257460b28e9874440d22e2b5\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
 55
 56        <meta-data
-56-->[com.google.android.gms:play-services-basement:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/AndroidManifest.xml:23:9-25:69
+56-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\8f1a4dd3312cc91a3d2a00614d2f10b5\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
 57            android:name="com.google.android.gms.version"
-57-->[com.google.android.gms:play-services-basement:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/AndroidManifest.xml:24:13-58
+57-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\8f1a4dd3312cc91a3d2a00614d2f10b5\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
 58            android:value="@integer/google_play_services_version" />
-58-->[com.google.android.gms:play-services-basement:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/AndroidManifest.xml:25:13-66
+58-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\ariel\.gradle\caches\transforms-2\files-2.1\8f1a4dd3312cc91a3d2a00614d2f10b5\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
 59    </application>
 60
 61</manifest>

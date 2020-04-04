@@ -1,14 +1,15 @@
 import 'package:arnason_weather/pages/today.dart';
 import 'package:flutter/material.dart';
-import "package:arnason_weather/pages/loading.dart";
 
 
+import "./pages/loading.dart";
+import "./pages/week.dart";
 
 void main() => runApp(MaterialApp(
   initialRoute: "/",
   routes: {
     "/": (context) => Loading(),
-    "/today": (context) => Today()
-    // "/week": (context) => Week(),
+    "/today": (context) => Today(),
+    "/week": (context) => Week(),
   },
 ));

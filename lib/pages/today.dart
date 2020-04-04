@@ -1,46 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
-class SwitchWidget extends StatefulWidget {
-  @override
-  _SwitchWidgetState createState() => _SwitchWidgetState();
-}
-
-class _SwitchWidgetState extends State<SwitchWidget> {
-  @override
-  Widget build(BuildContext context) {
-    bool switchControl = false;
-    var textHolder = 'Switch is OFF';
-
-    void toggleSwitch(bool value){
-
-      if(switchControl == false){
-        setState((){
-            switchControl = true;
-          });
-          print('Switch is on');
-          // my code for C / F
-        }
-      else{
-        setState((){
-          switchControl = false;
-        });
-        print('Switch is off');
-        // my code for c / f
-        }
-      }
-      @override
-      Widget build(BuildContext context) {
-        return Switch(
-              onChanged: toggleSwitch,
-              value: switchControl,
-              activeColor: Colors.blue,
-              activeTrackColor: Colors.green,
-              inactiveThumbColor: Colors.white,
-              inactiveTrackColor: Colors.grey,
-            );
-      }
-    }
-  }
 
 class Today extends StatefulWidget {
   @override
@@ -49,107 +9,144 @@ class Today extends StatefulWidget {
 
 class _TodayState extends State<Today> {
   Map data = {};
+  bool tempSwitch = true;
+  
+  // bool langSwitch = false;
 
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-
+    var temp = data["temp"];
     var main = data["main"];
     var location = data["location"];
     // String daytimeImage = data[]
-    return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          // PopupMenuButton<String>(
-          //   itemBuilder: (BuildContext context){
-          //     return 
-          //   },
-          // )
-          FlatButton.icon(
-            icon: Icon(
-              Icons.location_city
-              ,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-            label: Text(
-              "$location",
-              style: TextStyle(
-                fontSize: 18.0,
+    return new WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: <Widget>[
+            // PopupMenuButton<String>(
+            //   itemBuilder: (BuildContext context){
+            //     return
+            //   },
+            // )
+            FlatButton.icon(
+              icon: Icon(
+                Icons.location_city,
                 color: Colors.white,
-                )
               ),
-                          
-            shape: CircleBorder(
-              side: BorderSide(
-                color: Colors.transparent
-                )
-              ),
-          )
-        ],
-        // title: Text("$location",
-        //   style: TextStyle(color: Colors.white),
-        //   textDirection: TextDirection.ltr),
-        flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              colors: [
-                const Color(0xFF37474F),
-                const Color(0xFF78909C),
-                      ],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp
-            ),
-          ),
-        ),        
-      ),
-          
-          
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader( 
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/logo1.png"), 
-                )
-              ),
-              child: Text(
-                "Weather",
-                style: TextStyle(
-                  fontSize: 40.0
-                )
-              ),
-            ),
-            // SizedBox(height: 20.0),
-            ListTile(
-              title: Text("Today's weather"),
-              trailing: Icon(Icons.cloud)
-            ),
-            ListTile(
-              title: Text("The week's weather"),
-              trailing: Icon(Icons.view_week)
-            ),
-            Divider(),
-            ListTile(
-              title: Text("C° / F°"),
-              // trailing: SwitchWidget()
-            ),
+              onPressed: () {},
+              label: Text("$location",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.white,
+                  )),
+              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+            )
           ],
-        ),
-      ),       
-          
-          
-          body: Center(
-            child: Text(
-              "Weather in $location: $main",
-              style: TextStyle(
-              fontSize: 40.0
+          // title: Text("$location",
+          //   style: TextStyle(color: Colors.white),
+          //   textDirection: TextDirection.ltr),
+          flexibleSpace: Container(
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [Colors.blueGrey[200], Colors.blueGrey[900]],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+            ),
           ),
         ),
+
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: <Color>[
+                  Colors.blueGrey[200],
+                  Colors.blueGrey[900]
+                ])),
+                child: Text("Settings", style: TextStyle(fontSize: 30.0)),
+              ),
+              // SizedBox(height: 20.0),
+              // ListTile(
+              //   title: Text("The week's weather"),
+              //   trailing: Icon(Icons.view_week),
+              //   onTap: () {
+              //     Navigator.of(context).pop();
+              //     try{
+              //     Navigator.pushNamed(context, "/week");
+              //     }
+              //     catch(e){
+              //       print("woops");
+              //     }
+              //   },
+              // ),
+              // Divider(),
+              ListTile(
+                  title: Text("C° / F°"),
+                  trailing: Switch(
+                    value: tempSwitch,
+                    onChanged: (value) {
+                      setState(() {
+                        tempSwitch = value;
+                      });
+                    },
+                    activeTrackColor: Colors.lightBlueAccent,
+                    activeColor: Colors.lime,
+                  )),
+              // ListTile(
+              //   title: Text("English / Icelandic"),
+              //   trailing: Switch(
+              //   value: langSwitch,
+              //     onChanged: (value) {
+              //       setState(() {
+              //         langSwitch = value;
+              //       });
+              //     },
+              //     activeTrackColor: Colors.lightBlueAccent,
+              //     activeColor: Colors.lime,
+              //     )),
+              Divider(),
+              ListTile(
+                title: Text("Current location"),
+                trailing: Icon(Icons.location_on),
+              ),
+            ],
+          ),
+        ),
+
+        // trailing: SwitchWidget()
+
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: Text("Weather in $location:",
+              style: TextStyle(fontSize: 40.0)
+              )
+            ),
+            Expanded(
+              child: Text("$main",
+              style: TextStyle(fontSize: 20.0)
+              )
+            ),
+            Expanded(
+              child: Text("$temp C°",
+              style: TextStyle(fontSize: 20.0)
+              )
+            )
+          ]
+        ),
+          //  Text(
+          //   "Weather in $location:",
+          //   style: TextStyle(fontSize: 40.0),
+
+          //    $main"
+          // ),
+        // ),
       ),
     );
   }
@@ -181,26 +178,25 @@ class _TodayState extends State<Today> {
 //     ),
 //   ),
 
-      //   title: Text(
-      //     "$location"),
-      //     backgroundColor: Colors.blueGrey[500],
-      //   ),
-      // drawer: Drawer(
-      //   child: ListView(
-      //     children: <Widget>[
-      //       ListTile()
-      //     ],
-      //   ),
-      // ),      
-      
+//   title: Text(
+//     "$location"),
+//     backgroundColor: Colors.blueGrey[500],
+//   ),
+// drawer: Drawer(
+//   child: ListView(
+//     children: <Widget>[
+//       ListTile()
+//     ],
+//   ),
+// ),
 
-    //   appBar: AppBar(
-    //     title: 
-    //     Text("Arnason Weather app"),
-    //     centerTitle: true,
-    //     backgroundColor: Colors.lightBlue[900],
-        // leading: new IconButton(
-        //     icon: new Icon(Icons.more_vert),
-    //         onPressed: () => Navigator.of(context).pop(null),
-    //     )
-    //   ),
+//   appBar: AppBar(
+//     title:
+//     Text("Arnason Weather app"),
+//     centerTitle: true,
+//     backgroundColor: Colors.lightBlue[900],
+// leading: new IconButton(
+//     icon: new Icon(Icons.more_vert),
+//         onPressed: () => Navigator.of(context).pop(null),
+//     )
+//   ),
