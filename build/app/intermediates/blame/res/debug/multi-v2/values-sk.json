@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\----Backup box---\\Docs\\flutter\\arnasonweather1\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sk\\values-sk.xml",
+            "outputFile": "/Users/arnason/Documents/FlutterProjects/arnason_weather_02/arnasonweather1/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-sk/values-sk.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ariel\\.gradle\\caches\\transforms-2\\files-2.1\\9611c12a11fb129c2d552e558222aed1\\core-1.0.0\\res\\values-sk\\values-sk.xml",
+                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/9611c12a11fb129c2d552e558222aed1/core-1.0.0/res/values-sk/values-sk.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ariel\\.gradle\\caches\\transforms-2\\files-2.1\\dd4e2451257460b28e9874440d22e2b5\\jetified-play-services-base-16.0.1\\res\\values-sk\\values.xml",
+                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/res/values-sk/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ariel\\.gradle\\caches\\transforms-2\\files-2.1\\8f1a4dd3312cc91a3d2a00614d2f10b5\\jetified-play-services-basement-16.0.1\\res\\values-sk\\values.xml",
+                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/res/values-sk/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 
 import "./pages/loading.dart";
-import "./pages/week.dart";
+import "./pages/search.dart";
 
 void main() => runApp(MaterialApp(
   initialRoute: "/",
   routes: {
     "/": (context) => Loading(),
     "/today": (context) => Today(),
-    "/week": (context) => Week(),
+    "/search": (context) => Search(),
   },
 ));

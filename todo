@@ -18,3 +18,190 @@ Click location name for search function.
 my locations in drawer
 change c / f in drawer
 change lang in drawer
+
+
+
+glósur:
+
+
+import "package:arnason_weather_02/today.dart";
+import "package:arnason_weather_02/week.dart";
+import "package:flutter/material.dart";
+
+import "./weather.dart";
+
+void main() => runApp(arnason());
+
+class arnason extends StatefulWidget {
+  @override
+  _arnasonState createState() => _arnasonState();
+}
+
+class _arnasonState extends State<arnason> {
+
+
+
+  //temp api key:
+  String apikey = '12b6e28582eb9298577c734a31ba9f4f';
+  //my api:
+  //String key = '8ed0ab17ad4325bb6592a4fd43f7fc9a';
+
+  void setupWorldWeather() async {
+    WorldWeather myinstance =
+        WorldWeather(location: "Reykjavik", url: "Reykjavik&appid=$apikey");
+    await myinstance.getWeather();
+    print(myinstance.main);
+  }
+
+
+  int index = 0;
+  List<Widget> list = [
+    Today(),
+    Week()
+  ];
+
+  // Navigator.pushNamed(context, "/today", arguments: {
+  //     "location": myinstance.location,
+  //     "main": myinstance.main,
+
+  @override
+  void initState() {
+    super.initState();
+    setupWorldWeather();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Weather App"),
+        ),
+        body: list[index],
+        drawer: MyDrawer(onTap: (ctx,i){
+          setState(() {
+            index = i;
+            Navigator.pop(ctx);
+          });
+        },),
+      ),
+    );
+  }
+}
+
+class MyDrawer extends StatelessWidget {
+
+  final Function onTap;
+
+  MyDrawer({
+    this.onTap
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width*0.8,
+      child: Drawer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blueGrey),
+              child: Padding(
+                padding: EdgeInsets.all(6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      width: 60,
+                      height: 60,
+                    ),
+                    SizedBox(height: 15,),
+                    Text(
+                      "Weatherapp"
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Today"),
+              onTap: () => onTap(context, 2), 
+            ),
+            ListTile(
+              leading: Icon(Icons.cloud),
+              title: Text("Week"),
+              onTap: () => onTap(context, 1), 
+            ),
+            Divider(),
+          ],
+        )
+      )
+    );
+  }
+}
+
+
+
+
+
+
+
+
+import "package:flutter/material.dart";
+
+class Today extends StatefulWidget {
+  @override
+  _TodayState createState() => _TodayState();
+}
+
+class _TodayState extends State<Today> {
+  // Map data = {};
+
+
+  @override
+  Widget build(BuildContext context) {
+    // data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+    // var main = data["main"];
+
+
+
+    return Container(
+      child: Center(
+        child: Text(
+          "Today",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.w600
+          )
+        )
+      )
+    );
+  }
+}
+
+
+
+
+import "package:flutter/material.dart";
+
+class Week extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text(
+          "Week",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.w600
+          )
+        )
+      )
+    );
+  }
+}

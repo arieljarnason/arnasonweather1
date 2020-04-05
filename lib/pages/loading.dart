@@ -23,7 +23,8 @@ class _LoadingState extends State<Loading> {
     WorldWeather myinstance =
         WorldWeather(location: "Reykjavik", url: "Reykjavik&appid=$apikey");
     await myinstance.getWeather();
-
+    
+    Navigator.of(context).pop();
     Navigator.pushNamed(context, "/today", arguments: {
       "location": myinstance.location,
       "main": myinstance.main,
