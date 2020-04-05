@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import "package:flutter_spinkit/flutter_spinkit.dart";
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
 import 'package:arnason_weather/service/weather.dart';
+
+List<String> citylist = [];
 
 class Loading extends StatefulWidget {
   @override
@@ -10,41 +16,62 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   String _res = 'Unknown';
 
-  //api keys
-  //temp one:
-  String apikey = '12b6e28582eb9298577c734a31ba9f4f';
-  //my api:
-  //String key = '8ed0ab17ad4325bb6592a4fd43f7fc9a';
-  //Declare the weatherstation
-  // WeatherStation ws;
+  // //api keys
+  // //temp one:
+  // String apikey = '12b6e28582eb9298577c734a31ba9f4f';
+  // //my api:
+  // //String key = '8ed0ab17ad4325bb6592a4fd43f7fc9a';
 
-  // void setupWeather() async {
   void setupWorldWeather() async {
-    WorldWeather myinstance =
-        WorldWeather(location: "Reykjavik", url: "Reykjavik&appid=$apikey");
-    await myinstance.getWeather();
+
+  //loads list of available cities
+  await rootBundle.loadString('assets/mynewfancylist.txt').then((q){
+    for (String i in LineSplitter().convert(q)){
+      citylist.add(i);
+    }
+  });
+  
+  //should be current location instance
+  // later saved currently used saved instance
+  print("loading keyrði");
+    WorldWeather curInstance =
+      WorldWeather(
+        location: "Reykjavik", 
+        url: "Reykjavik&appid=$apikey");
+    await curInstance.getWeather();
+   
+  Navigator.of(context).pop();
+  Navigator.pushNamed(
+    context, "/today", 
+    arguments: curInstance);
+}
+  // void getcitylist() async {
+  //   new File('mynewfancylist.txt').readAsString().then((String contents) {
+  //     print(contents);
+  //     // citylist = contents;
+  //   });
+  // }
     
-    Navigator.of(context).pop();
-    Navigator.pushNamed(context, "/today", arguments: {
-      "location": myinstance.location,
-      "main": myinstance.main,
-      "description": myinstance.description,
-      "iconUrl": myinstance.iconUrl,
-      "temp": myinstance.temp,
-      "tempMin": myinstance.tempMin,
-      "tempMax": myinstance.tempMax,
-      "pressure": myinstance.pressure,
-      "humidity": myinstance.humidity,
-      "feelsLike": myinstance.feelsLike,
-      "windSpeed": myinstance.windSpeed,
-      "windDirection": myinstance.windDirection,
-      "sunrise": myinstance.sunrise,
-      "sunset": myinstance.sunset,
-      "isDaytime": myinstance.isDaytime
+
+      // "location": curInstance.location,
+      // "main": myinstance.main,
+      // "description": myinstance.description,
+      // "iconUrl": myinstance.iconUrl,
+      // "temp": myinstance.temp,
+      // "tempMin": myinstance.tempMin,
+      // "tempMax": myinstance.tempMax,
+      // "pressure": myinstance.pressure,
+      // "humidity": myinstance.humidity,
+      // "feelsLike": myinstance.feelsLike,
+      // "windSpeed": myinstance.windSpeed,
+      // "windDirection": myinstance.windDirection,
+      // "sunrise": myinstance.sunrise,
+      // "sunset": myinstance.sunset,
+      // "isDaytime": myinstance.isDaytime
       // "isDaytime": myinstance.isDaytime,
-    });
+    // });
     // Navigator.pushNamed(context, "/week");
-  }
+  
   // setja upp instance af mínu weather object
   //
   //api example city name:
@@ -61,6 +88,7 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
+    // getcitylist();
     setupWorldWeather();
   }
 

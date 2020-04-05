@@ -2,6 +2,14 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 
+String apikey = '12b6e28582eb9298577c734a31ba9f4f';
+//api keys
+//temp one:
+//my api:
+//String key = '8ed0ab17ad4325bb6592a4fd43f7fc9a';
+
+
+
 class WorldWeather {
   String location, main, url, description, iconUrl, sunrise, sunset;
   var temp,
@@ -11,7 +19,8 @@ class WorldWeather {
       humidity,
       feelsLike,
       windSpeed,
-      windDirection;
+      windDirection,
+      windDegrees;
   //location where to get weather info for
   //String time;
   //url for api ending
@@ -43,7 +52,45 @@ class WorldWeather {
       humidity =        maindata["humidity"];
       feelsLike =       maindata["feels_like"];
       windSpeed =       wind["speed"];
-      windDirection =   wind["deg"];
+      // windDirection =   wind["deg"];
+      windDegrees = wind["deg"];
+      
+      if (windDegrees < 11.25) {windDirection = "N";}
+      if (windDegrees >= 11.25) {windDirection = "NNE";}
+      if (windDegrees >= 33.75) {windDirection = "NE";}
+      else windDirection = "S";
+      // windDirection;
+// N348.75 - 11.25
+// NNE
+// 11.25 - 33.75
+// NE
+// 33.75 - 56.25
+// ENE
+// 56.25 - 78.75
+// E
+// 78.75 - 101.25
+// ESE
+// 101.25 - 123.75
+// SE
+// 123.75 - 146.25
+// SSE
+// 146.25 - 168.75
+// S
+// 168.75 - 191.25
+// SSW
+// 191.25 - 213.75
+// SW
+// 213.75 - 236.25
+// WSW
+// 236.25 - 258.75
+// W
+// 258.75 - 281.25
+// WNW
+// 281.25 - 303.75
+// NW
+// 303.75 - 326.25
+// NNW
+// 326.25 - 348.75
       // String windSpeed = wind["speed"].toString();
       // String windDirection = wind["deg"].toString();
 

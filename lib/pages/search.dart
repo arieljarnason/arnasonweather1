@@ -2,7 +2,9 @@ import "package:flutter/material.dart";
 import "package:flutter/foundation.dart";
 
 
+import "./loading.dart";
 import "../service/weather.dart";
+import "./today.dart";
 
 // import "package:flappy_search_bar/flappy_search_bar.dart";
 // 
@@ -21,6 +23,16 @@ import "../service/weather.dart";
 //     );
 //   }
 // }
+  // var testInstance;
+
+  // var name = "London";
+  // getWeatherFromHere(name) {
+  //   WorldWeather superInstance =
+  //   WorldWeather(location: name, url: "$name&appid=$apikey");
+  //   superInstance.getWeather();
+  //   return superInstance;
+  // }
+
 
 class Search extends StatefulWidget {
   Search({Key key, this.title}) : super(key: key);
@@ -35,14 +47,15 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   TextEditingController editingController = TextEditingController();
 
-  // final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
+  // final cityList = List<String>.generate(10000, (i) => "Item $i");
   
-  final List<String> duplicateItems = [
-  "reykjavik", "london", "akureyri", "paris", "madrid"
-  ];
+  // temp city list
+  final List<String> cityList = citylist;
+  // [
+  // "reykjavik", "london", "akureyri", "paris", "madrid",
+  // ];
   //Make all items in list LOWERCASE
   var items = List<String>();
-
   // void updateTime(index) async {
   //   WorldTime instance = locations[index];
   //   await instance.getTime();
@@ -55,20 +68,29 @@ class _SearchState extends State<Search> {
   //   });
   // }
 
-  void updateLocation(index) async {
-    
-  }
-  
+  // void updateLocation(index) async {
+  //   WorldWeather instance = 
+  // }
+
   @override
   void initState() {
-    items.addAll(duplicateItems);
+    items.addAll(cityList);
     super.initState();
+  }
+
+  getWeatherFromHere(name) {
+    WorldWeather newInstance =
+    WorldWeather(location: name, url: "$name&appid=$apikey");
+    newInstance.getWeather();
+    return newInstance;
+
   }
 
   void filterSearchResults(String query) {
     List<String> dummySearchList = List<String>();
-    dummySearchList.addAll(duplicateItems);
+    dummySearchList.addAll(cityList);
     if(query.isNotEmpty) {
+      print("search keyrði");
       List<String> dummyListData = List<String>();
       dummySearchList.forEach((item) {
         if(item.contains(query)) {
@@ -83,7 +105,7 @@ class _SearchState extends State<Search> {
     } else {
       setState(() {
         items.clear();
-        items.addAll(duplicateItems);
+        items.addAll(cityList);
       });
     }
 
@@ -122,9 +144,35 @@ class _SearchState extends State<Search> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     
-                    onTap: (){
-                      print("tapped item ${items[index]}");
+                    onTap: () async {
+
+                      
+                      print("tapped item ");
+                      print("tapped item number $index");
+
+                      // void setupWorldWeather() async {
+
+                      print("loading keyrði");
+                        WorldWeather curInstance =
+                          WorldWeather(
+                            location: "${items[index]}", 
+                            url: "${items[index]}&appid=$apikey");
+                        await curInstance.getWeather();
+                      
                       Navigator.of(context).pop();
+                      Navigator.pushNamed(
+                        context, "/today", 
+                        arguments: curInstance);
+                    // }
+                      // Navigator.of(context).pop();
+                      // // data = getWeatherFromHere("${items[index]}");
+                      // // print(data.location);
+                      // Navigator.pushNamed(
+                      // context, "/today", 
+                      // arguments: testInstance);
+
+
+                      // arguments: getWeatherFromHere("${items[index]}"));
                     },
                     title: Text('${items[index]}'),
                   );
