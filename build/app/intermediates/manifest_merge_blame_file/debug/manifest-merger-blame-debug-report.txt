@@ -32,7 +32,7 @@
 25        android:name="io.flutter.app.FlutterApplication"
 25-->/Users/arnason/Documents/FlutterProjects/arnason_weather_02/arnasonweather1/android/app/src/main/AndroidManifest.xml:9:9-57
 26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-26-->[androidx.core:core:1.0.0] /Users/arnason/.gradle/caches/transforms-2/files-2.1/9611c12a11fb129c2d552e558222aed1/core-1.0.0/AndroidManifest.xml:22:18-86
+26-->[androidx.core:core:1.2.0] /Users/arnason/.gradle/caches/transforms-2/files-2.1/15b6a39ba103856e8d4ce18ed38c37e4/core-1.2.0/AndroidManifest.xml:24:18-86
 27        android:debuggable="true"
 28        android:icon="@mipmap/ic_launcher"
 28-->/Users/arnason/Documents/FlutterProjects/arnason_weather_02/arnasonweather1/android/app/src/main/AndroidManifest.xml:11:9-43
@@ -75,20 +75,20 @@
 49-->/Users/arnason/Documents/FlutterProjects/arnason_weather_02/arnasonweather1/android/app/src/main/AndroidManifest.xml:28:13-30
 50
 51        <activity
-51-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:23:9-26:75
+51-->[com.google.android.gms:play-services-base:17.2.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/54c6ea66bb6d1ed5d68ea295cce331dc/play-services-base-17.2.1/AndroidManifest.xml:23:9-26:75
 52            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-52-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:24:13-79
+52-->[com.google.android.gms:play-services-base:17.2.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/54c6ea66bb6d1ed5d68ea295cce331dc/play-services-base-17.2.1/AndroidManifest.xml:24:13-79
 53            android:exported="false"
-53-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:25:13-37
+53-->[com.google.android.gms:play-services-base:17.2.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/54c6ea66bb6d1ed5d68ea295cce331dc/play-services-base-17.2.1/AndroidManifest.xml:25:13-37
 54            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-54-->[com.google.android.gms:play-services-base:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/AndroidManifest.xml:26:13-72
+54-->[com.google.android.gms:play-services-base:17.2.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/54c6ea66bb6d1ed5d68ea295cce331dc/play-services-base-17.2.1/AndroidManifest.xml:26:13-72
 55
 56        <meta-data
-56-->[com.google.android.gms:play-services-basement:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/AndroidManifest.xml:23:9-25:69
+56-->[com.google.android.gms:play-services-basement:17.2.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/a75990531057de43e654e5144a798b04/jetified-play-services-basement-17.2.1/AndroidManifest.xml:23:9-25:69
 57            android:name="com.google.android.gms.version"
-57-->[com.google.android.gms:play-services-basement:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/AndroidManifest.xml:24:13-58
+57-->[com.google.android.gms:play-services-basement:17.2.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/a75990531057de43e654e5144a798b04/jetified-play-services-basement-17.2.1/AndroidManifest.xml:24:13-58
 58            android:value="@integer/google_play_services_version" />
-58-->[com.google.android.gms:play-services-basement:16.0.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/AndroidManifest.xml:25:13-66
+58-->[com.google.android.gms:play-services-basement:17.2.1] /Users/arnason/.gradle/caches/transforms-2/files-2.1/a75990531057de43e654e5144a798b04/jetified-play-services-basement-17.2.1/AndroidManifest.xml:25:13-66
 59    </application>
 60
 61</manifest>

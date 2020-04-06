@@ -116,7 +116,19 @@ class _SearchState extends State<Search> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Search for city"),
+        flexibleSpace: Container(
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [Colors.blueGrey[200], Colors.blueGrey[900]],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
+        ),
       ),
+
+
       body: Container(
         child: Column(
           children: <Widget>[
@@ -152,11 +164,11 @@ class _SearchState extends State<Search> {
 
                       // void setupWorldWeather() async {
 
-                      print("loading keyrði");
+                      // print("loading keyrði");
                         WorldWeather curInstance =
                           WorldWeather(
                             location: "${items[index]}", 
-                            url: "${items[index]}&appid=$apikey");
+                            url: "q=${items[index]}&appid=$apikey");
                         await curInstance.getWeather();
                       
                       Navigator.of(context).pop();

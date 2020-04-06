@@ -3,6 +3,7 @@ import "package:flutter_spinkit/flutter_spinkit.dart";
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:geolocator/geolocator.dart';
 
 import 'package:arnason_weather/service/weather.dart';
 
@@ -33,13 +34,34 @@ class _LoadingState extends State<Loading> {
   
   //should be current location instance
   // later saved currently used saved instance
+
+  // kalla á geo location, my locatoin, finna lat og long
+  // https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22
+
   print("loading keyrði");
-    WorldWeather curInstance =
-      WorldWeather(
-        location: "Reykjavik", 
-        url: "Reykjavik&appid=$apikey");
+  Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  print(position);
+  var lat = position.latitude;
+  var long = position.longitude;
+    // WorldWeather curInstance =
+    //   WorldWeather(
+    //     location: "Reykjavik", 
+    //     url: "Reykjavik&appid=$apikey");
+    // await curInstance.getWeather();
+
+
+  WorldWeather curInstance =
+  WorldWeather(
+    // location: "current location",
+    url: "lat=$lat&lon=$long&appid=$apikey");
     await curInstance.getWeather();
-   
+
+
+// api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={your api key}
+// api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
+
+
+
   Navigator.of(context).pop();
   Navigator.pushNamed(
     context, "/today", 

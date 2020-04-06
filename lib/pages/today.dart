@@ -1,8 +1,9 @@
 import 'package:arnason_weather/service/weather.dart';
 import 'package:flutter/material.dart';
-// import 'package:path/path.dart';
-// import "package:flappy_search_bar/flappy_search_bar.dart";
+import 'package:geolocator/geolocator.dart';
+
 var data;
+
 class Today extends StatefulWidget {
   @override
   _TodayState createState() => _TodayState();
@@ -24,20 +25,17 @@ class _TodayState extends State<Today> {
     data = ModalRoute.of(context).settings.arguments;
     // data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
     var location = data.location;
-    var main = data.main;
-    var temp = data.temp;
 
-
-    // String daytimeImage = data[]
-    print(data.location);
-    print(data.temp);
-    print("keyrir!");
-    print(data.iconUrl);
 
     return Scaffold(
       appBar: AppBar(
         title: 
-            Text("$location"),
+            Text("${data.name}",
+            style: TextStyle(
+                fontSize: 24.0,
+                fontFamily: 'OpenSans',
+                letterSpacing: 1.5),
+            ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -47,26 +45,6 @@ class _TodayState extends State<Today> {
             },
           ),
         ],
-
-        // FlatButton.icon(
-        //   icon: Icon(
-        //     Icons.search,
-        //     color: Colors.white,
-        //   ),
-        //   onPressed: () {
-        //     setState(() {
-        //       this.isSearching = !this.isSearching;
-        //     });
-        //     // Navigator.of(context).pop();
-        //     // Navigator.pushNamed(context, "/search");
-        //   },
-        //   label: Text(" "),
-        //   shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-        // )
-        // ],
-        // title: Text("$location",
-        //   style: TextStyle(color: Colors.white),
-        //   textDirection: TextDirection.ltr),
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
@@ -89,25 +67,14 @@ class _TodayState extends State<Today> {
                 Colors.blueGrey[200],
                 Colors.blueGrey[900]
               ])),
-              child: Text("Settings", style: TextStyle(fontSize: 30.0)),
+              child: Text("Arnason Weather", style: TextStyle(
+                fontSize: 30.0,
+                fontFamily: 'Montserrat')),
             ),
-            // SizedBox(height: 20.0),
-            // ListTile(
-            //   title: Text("The week's weather"),
-            //   trailing: Icon(Icons.view_week),
-            //   onTap: () {
-            //     Navigator.of(context).pop();
-            //     try{
-            //     Navigator.pushNamed(context, "/week");
-            //     }
-            //     catch(e){
-            //       print("woops");
-            //     }
-            //   },
-            // ),
-            // Divider(),
             ListTile(
-                title: Text("C° / F°"),
+                title: Text("C° / F°",
+                style: TextStyle(
+                fontFamily: 'Montserrat')),
                 trailing: Switch(
                   value: tempSwitch,
                   onChanged: (value) {
@@ -119,7 +86,9 @@ class _TodayState extends State<Today> {
                   activeColor: Colors.lime,
                 )),
             ListTile(
-                title: Text("English / Icelandic"),
+                title: Text("English / Icelandic",
+                style: TextStyle(
+                fontFamily: 'Montserrat')),
                 trailing: Switch(
                   value: langSwitch,
                   onChanged: (value) {
@@ -132,19 +101,36 @@ class _TodayState extends State<Today> {
                 )),
             Divider(),
             ListTile(
-              title: Text("Current location"),
+              title: Text("Current location",
+              style: TextStyle(
+              fontFamily: 'Montserrat')),
               trailing: Icon(Icons.location_on),
+              onTap: () async {
+
+                Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                var lat = position.latitude;
+                var long = position.longitude;
+                WorldWeather curInstance =
+                  WorldWeather(
+                    url: "lat=$lat&lon=$long&appid=$apikey");
+                    await curInstance.getWeather();
+                      Navigator.pushNamed(
+                      context, "/today", 
+                      arguments: curInstance);
+              },
             ),
+            // ListTile(
+            //   title: Text("My location 1"),
+            //   trailing: Icon(Icons.location_city),
+            // ),
+            // ListTile(
+            //   title: Text("My location 2"),
+            //   trailing: Icon(Icons.location_city),
+            // ),
             ListTile(
-              title: Text("My location 1"),
-              trailing: Icon(Icons.location_city),
-            ),
-            ListTile(
-              title: Text("My location 2"),
-              trailing: Icon(Icons.location_city),
-            ),
-            ListTile(
-              title: Text("Add new location"),
+              title: Text("Add new location",
+              style: TextStyle(
+              fontFamily: 'Montserrat')),
               trailing: Icon(Icons.add),
               onTap: () {
                 Navigator.pushNamed(context, "/search");
@@ -154,16 +140,10 @@ class _TodayState extends State<Today> {
         ),
       ),
 
-      // trailing: SwitchWidget()
-
       body: 
-      
-      
-      
       Column(children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(10.0),
-          // child: Center(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.95,
               height: MediaQuery.of(context).size.height * 0.4,
@@ -171,127 +151,104 @@ class _TodayState extends State<Today> {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    // Image(image: AssetImage('assets/logo1.png')),
-                    ListTile(
-                      leading: CircleAvatar(
-                        radius: 40.0,
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: NetworkImage(
-                        'http://openweathermap.org/img/w/${data.iconUrl}.png',
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      // Image(image: AssetImage('assets/logo1.png')),
+                      ListTile(
+                        leading: CircleAvatar(
+                          radius: 40.0,
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: NetworkImage(
+                          'http://openweathermap.org/img/w/${data.iconUrl}.png',
+                          ),
+                        ),
+                        title: Text(
+                          'Weather in ${data.name}',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w500,
+                          )
                         ),
                       ),
-                      title: Text(
-                        'Weather in $location',
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16.0, 16, 0, 0),
+                        child: Text(
+                            "${data.main}, ${data.description}",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Montserrat'
+                            ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15.5, 7, 0, 0),
+                        child: Text(
+                            "Temperature: ${data.temp} C°",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: 'Montserrat'
+                            ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(17, 2, 0, 0),
+                        child: Text(
+                          "Feels like: ${data.feelsLike} C°",
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
-                        )
+                          fontSize: 17.0,
+                          fontFamily: 'OpenSans'
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 16, 0, 0),
-                      child: Text("${data.main}, ${data.description}",style: TextStyle(fontSize: 20.0),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16.0, 10, 0, 0),
+                        child: Text(
+                          "Temp min: ${data.tempMin},  max: ${data.tempMax}",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'Montserrat',
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15.1, 7, 0, 0),
-                      child: Text("Temperature: ${data.temp} C°",style: TextStyle(fontSize: 20.0),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16.0, 2, 0, 0),
+                        child: Text(
+                          "Pressure: ${data.pressure}  Humidity ${data.humidity}",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'Montserrat',
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.8, 2, 0, 0),
-                      child: Text("Feels like: ${data.feelsLike} C°",style: TextStyle(fontSize: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16.0, 2, 0, 0),
+                        child: Text(
+                          "Windspeed: ${data.windSpeed} m/sec,  direction: ${data.windDirection} ",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'Montserrat',
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 7, 0, 0),
-                      child: Text("Temp min: ${data.tempMin},  max: ${data.tempMax}",style: TextStyle(fontSize: 16.0),
-                      ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(16.0, 2, 0, 0),
-                    //   child: Text("Temp max ${data.tempMax}",style: TextStyle(fontSize: 16.0),
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 2, 0, 0),
-                      child: Text("Pressure: ${data.pressure}  Humidity ${data.humidity}",style: TextStyle(fontSize: 16.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 2, 0, 0),
-                      child: Text("Windspeed: ${data.windSpeed} from direction degree: ${data.windDirection} ",style: TextStyle(fontSize: 16.0),
-                      ),
-                    ),
-
-                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 2, 0, 0),
-                      child: Text("Sunrise: ${data.sunrise}  Sunset ${data.sunset}",style: TextStyle(fontSize: 16.0),
-                      ),
-                    ), 
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(16.0, 2, 0, 0),
-                    //   child: Text("Windspeed: ${data.windSpeed}",style: TextStyle(fontSize: 14.0),
-                    //   ),
-                    // ),
-
-                    // "sunrise": myinstance.sunrise,
-      // "sunset": myinstance.sunset,
-                    // ListTile(
-                    //   subtitle: Text('sdf'),
-                    // ),
-                    // ListTile(
-                    //   subtitle: Text(''),
-                    // ),
-
-                    
-
-
-      // "location": curInstance.location,
-      // "main": myinstance.main,
-      // "description": myinstance.description,
-      // "iconUrl": myinstance.iconUrl,
-      // "temp": myinstance.temp,
-      // "tempMin": myinstance.tempMin,
-      // "tempMax": myinstance.tempMax,
-      // "pressure": myinstance.pressure,
-      // "humidity": myinstance.humidity,
-      // "feelsLike": myinstance.feelsLike,
-      // "windSpeed": myinstance.windSpeed,
-      // "windDirection": myinstance.windDirection,
-      // "sunrise": myinstance.sunrise,
-      // "sunset": myinstance.sunset,
-      // "isDaytime": myinstance.isDaytime
-      // "isDaytime": myinstance.isDaytime,
-                  ],
-                ),
-                  // child: Text(
-                  //   "Weather in $location",
-                  //   style: TextStyle(
-                  //     color: Colors.blueGrey[900],
-                  //     fontSize: 20.0,
-                  //     letterSpacing: 2.0,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16.0, 12, 0, 0),
+                        child: Text(
+                          "Sunrise: ${data.sunrise}  Sunset ${data.sunset}",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'OpenSans'),
+                        ),
+                      ), 
+                    ],
+                  ),
                 ),
               ),
             ),
-          // ),
-        ),
-      ]),
-        // Expanded(
-        //     child: Text("Weather in $location:",
-        //         style: TextStyle(fontSize: 40.0))),
-        // Expanded(child: Text("$main", style: TextStyle(fontSize: 20.0))),
-        // Expanded(child: Text("$temp C°", style: TextStyle(fontSize: 20.0)))
-      //  Text(
-      //   "Weather in $location:",
-      //   style: TextStyle(fontSize: 40.0),
-
-      //    $main"
-      // ),
-      // ),
+          ),
+        ]
+      ),
     );
   }
 }

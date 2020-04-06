@@ -4,24 +4,7 @@
             "outputFile": "/Users/arnason/Documents/FlutterProjects/arnason_weather_02/arnasonweather1/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
             "map": [
                 {
-                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/032670f1513c7f02251b025350e99f44/jetified-play-services-basement-16.0.1/res/values-nl/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "201",
-                        "endOffsets": "448"
-                    },
-                    "to": {
-                        "startLines": "10",
-                        "startColumns": "4",
-                        "startOffsets": "1292",
-                        "endColumns": "201",
-                        "endOffsets": "1489"
-                    }
-                },
-                {
-                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/45fc513519653fc1758b28de590c22d2/jetified-play-services-base-16.0.1/res/values-nl/values.xml",
+                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/54c6ea66bb6d1ed5d68ea295cce331dc/play-services-base-17.2.1/res/values-nl/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/9611c12a11fb129c2d552e558222aed1/core-1.0.0/res/values-nl/values-nl.xml",
+                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/15b6a39ba103856e8d4ce18ed38c37e4/core-1.2.0/res/values-nl/values-nl.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -52,6 +35,23 @@
                         "startOffsets": "2900",
                         "endColumns": "100",
                         "endOffsets": "2996"
+                    }
+                },
+                {
+                    "source": "/Users/arnason/.gradle/caches/transforms-2/files-2.1/a75990531057de43e654e5144a798b04/jetified-play-services-basement-17.2.1/res/values-nl/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "201",
+                        "endOffsets": "448"
+                    },
+                    "to": {
+                        "startLines": "10",
+                        "startColumns": "4",
+                        "startOffsets": "1292",
+                        "endColumns": "201",
+                        "endOffsets": "1489"
                     }
                 }
             ]
