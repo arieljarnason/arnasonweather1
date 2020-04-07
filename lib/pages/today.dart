@@ -1,6 +1,9 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+
 
 import 'package:arnason_weather/service/weather.dart';
 import 'package:arnason_weather/service/weekbuilder.dart';
@@ -24,6 +27,44 @@ class _TodayState extends State<Today> {
   bool langSwitch = false;
   Future<List> cities;
   // bool isSearching = false;
+
+// Wierd ass flutter way of saving and reading files---------------------
+// saving my customized drawer
+
+  Future get _localPath async {
+      final directory = await getApplicationDocumentsDirectory();
+      return directory.path;
+    }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/drawer.txt');
+}
+
+Future<File> writeCounter(int counter) async {
+  final file = await _localFile;
+
+  // Write the file.
+  return file.writeAsString('$counter');
+}
+  Future<int> readCounter() async {
+    try {
+      final file = await _localFile;
+
+      // Read the file.
+      String contents = await file.readAsString();
+
+      return int.parse(contents);
+    } catch (e) {
+      // If encountering an error, return 0.
+      return 0;
+    }
+  }
+
+// Wierd ass flutter way of saving and reading files---------------------
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +105,7 @@ class _TodayState extends State<Today> {
     List windWeek = [];
     
     List<Widget> callMeBabyList = [];
+    List<Widget> drawerList = [];
 
     
     for (var i = 1; i<6; i++){
@@ -82,9 +124,9 @@ class _TodayState extends State<Today> {
       iconWeek.add(weekData.mapOfIconUrl[dayString]);
       windWeek.add(weekData.mapOfWind[dayString]);
     }
-      print(iconWeek);
-      print(windWeek);
-      print(tempWeek);
+    // print(iconWeek);
+    // print(windWeek);
+    // print(tempWeek);
 
     
       //köllunaraðferð fyrir map of weekdata
@@ -96,67 +138,55 @@ class _TodayState extends State<Today> {
 
   // method that makes week boxes START -----------------------------------------
   // because I dont know flutter, made a seperate method for the 5 boxes i dno
-  weekMethod(
-    instanceDay,
-    instanceIcon, 
-    instanceTemp, 
-    instanceWind
-    ){
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-      child: Container(
-        width: MediaQuery.of(context).size.width * paddingSizeTiny,
-        height: MediaQuery.of(context).size.height * 0.3,
-        child: Card(
-          child: Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0,paddingSizeSmall,0,0),
-                  child: Center(
-                    child: Text(
-                    "$instanceDay",
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.02,
-                      fontFamily: 'Montserrat'
+    weekMethod(
+      instanceDay,
+      instanceIcon, 
+      instanceTemp, 
+      instanceWind
+      ){
+      return Padding(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: Container(
+          width: MediaQuery.of(context).size.width * paddingSizeTiny,
+          height: MediaQuery.of(context).size.height * 0.25,
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0,paddingSizeSmall,0,0),
+                    child: Center(
+                      child: Text(
+                      "$instanceDay",
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.02,
+                        fontFamily: 'Montserrat'
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Center(
-                child: new Container(
-                  width: MediaQuery.of(context).size.height * 0.07,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: new DecorationImage(
-                      fit: BoxFit.fill,
-                      image: new NetworkImage(
-                        "http://openweathermap.org/img/w/$instanceIcon.png")
+                Center(
+                  child: new Container(
+                    width: MediaQuery.of(context).size.height * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image: new NetworkImage(
+                          "http://openweathermap.org/img/w/$instanceIcon.png")
+                        )
                       )
-                    )
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, paddingSizeSmall, 0, 0),
-                    child: Text(
-                    "$instanceTemp C°",
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.025,
-                      fontFamily: 'OpenSans'
                     ),
                   ),
-                ),
-              ),
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, paddingSizeSmall, 0, 0),
-                    child: Text(
-                    "$instanceWind m/sec",
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(0, paddingSizeSmall, 0, 0),
+                      child: Text(
+                      "$instanceTemp C°",
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.height * 0.025,
                         fontFamily: 'OpenSans'
@@ -164,30 +194,169 @@ class _TodayState extends State<Today> {
                     ),
                   ),
                 ),
-              ],
-            )
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(0, paddingSizeSmall, 0, 0),
+                      child: Text(
+                      "$instanceWind m/sec",
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.025,
+                          fontFamily: 'OpenSans'
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ),
           ),
         ),
-      ),
-    );
-  }
-
-  callMeBaby() {
-    for (var i = 0; i < 5; i++){
-      callMeBabyList.add(weekMethod(weekStringsShort[i], iconWeek[i], tempWeek[i], windWeek[i]));
+      );
     }
-  }
-  callMeBaby();
-  // method that makes week boxes END -----------------------------------------
 
-  // method for list of locations in DRAWER START -----------------------------------------
-  // method for list of locations in DRAWER END -----------------------------------------
+    callMeBaby() {
+      for (var i = 0; i < 5; i++){
+        callMeBabyList.add(weekMethod(weekStringsShort[i], iconWeek[i], tempWeek[i], windWeek[i]));
+      }
+    }
+  // method that makes week boxes END -----------------------------------------
+    callMeBaby();
+
+    addToDrawer(name){
+      print("clicked");
+      drawerList.add(
+        ListTile(
+          title: Text(
+            "name",
+            style: TextStyle(
+              fontFamily: 'Montserrat'
+              ),
+            ),
+          trailing: Icon(Icons.location_city),
+        ),
+      );
+
+
+      print(drawerList);
+    }
+  // method for BASE list of locations in DRAWER START -----------------------------------------
+
+
+    makingTheDrawer(){
+    // Original drawer items:
+      if (drawerList.length < 1){
+        drawerList.add(
+          DrawerHeader(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: <Color>[
+                Colors.blueGrey[200],Colors.blueGrey[900]
+              ]
+            )
+          ),
+          child: Text("Arnason Weather", style: TextStyle(
+            fontSize: 30.0,
+              fontFamily: 'Montserrat'
+              )
+            ),
+          )
+        );
+          drawerList.add(
+            ListTile(
+              title: Text("Current location",
+              style: TextStyle(
+              fontFamily: 'Montserrat')),
+              trailing: Icon(Icons.location_on),
+              // move to another place!!!!!! ------------------
+              onTap: () async {
+                Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                var lat = position.latitude;
+                var long = position.longitude;
+                WorldWeather curInstance =
+                  WorldWeather(
+                    url: "lat=$lat&lon=$long&appid=$apikey");
+                await curInstance.getWeather();
+                  Weekbuilder curWeekInstance = 
+                    Weekbuilder(
+                    url: "lat=$lat&lon=$long&appid=$apikey");
+                await curWeekInstance.getWeatherWeek();
+
+                List myInstances = [];
+                myInstances.add(curInstance);
+                myInstances.add(curWeekInstance);
+                
+                Navigator.pushNamed(
+                context, "/today", 
+                arguments: myInstances);
+              },
+            // move to another place!!!!!! ------------------
+            )
+          );
+          drawerList.add(Divider());
+          // ListTile(
+          //     title: Text("C° / F°",
+          //     style: TextStyle(
+          //     fontFamily: 'Montserrat')),
+          //     trailing: Switch(
+          //       value: tempSwitch,
+          //       onChanged: (value) {
+          //         setState(() {
+          //           tempSwitch = value;
+          //         });
+          //       },
+          //       activeTrackColor: Colors.lightBlueAccent,
+          //       activeColor: Colors.lime,
+          //     )),
+          // ListTile(
+          //     title: Text("English / Icelandic",
+          //     style: TextStyle(
+          //     fontFamily: 'Montserrat')),
+          //     trailing: Switch(
+          //       value: langSwitch,
+          //       onChanged: (value) {
+          //         setState(() {
+          //           langSwitch = value;
+          //         });
+          //       },
+          //       activeTrackColor: Colors.lightBlueAccent,
+          //       activeColor: Colors.lime,
+          //     )),
+              // Divider(),
+              drawerList.add(
+                ListTile(
+                title: Text("Add new location",
+                style: TextStyle(
+                  fontFamily: 'Montserrat'
+                  )
+                ),
+                trailing: Icon(Icons.add),
+                onTap: () {
+                  addToDrawer("bla");
+                  // setState(() {
+                  //   makingTheDrawer();
+                  // });
+                  // Navigator.pushNamed(context, "/search");
+                  //keyra add to drawer method -----------------------------------------------
+                  },
+                )
+              ); 
+            }//org drawer stuff ends
+          }
+  // method for BASE list of locations in DRAWER END -----------------------------------------
+    makingTheDrawer();
+
+  // method to add to locations in DRAWER START -----------------------------------------
+
+
+  // method to add to locations in DRAWER END -----------------------------------------
+
 
 
 
   // UI START -----------------------------------------
 
-    return Scaffold(
+    // return Scaffold(
+      Scaffold scaffold = Scaffold(
       appBar: AppBar(
         title: 
             Text("$nowdate   ${data.name}",
@@ -196,6 +365,7 @@ class _TodayState extends State<Today> {
                 fontFamily: 'OpenSans',
                 letterSpacing: 1),
             ),
+        automaticallyImplyLeading: false,    
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -217,98 +387,12 @@ class _TodayState extends State<Today> {
         ),
       ),
 
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: <Color>[
-                Colors.blueGrey[200],
-                Colors.blueGrey[900]
-              ])),
-              child: Text("Arnason Weather", style: TextStyle(
-                fontSize: 30.0,
-                fontFamily: 'Montserrat')),
-            ),
-            // ListTile(
-            //     title: Text("C° / F°",
-            //     style: TextStyle(
-            //     fontFamily: 'Montserrat')),
-            //     trailing: Switch(
-            //       value: tempSwitch,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           tempSwitch = value;
-            //         });
-            //       },
-            //       activeTrackColor: Colors.lightBlueAccent,
-            //       activeColor: Colors.lime,
-            //     )),
-            // ListTile(
-            //     title: Text("English / Icelandic",
-            //     style: TextStyle(
-            //     fontFamily: 'Montserrat')),
-            //     trailing: Switch(
-            //       value: langSwitch,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           langSwitch = value;
-            //         });
-            //       },
-            //       activeTrackColor: Colors.lightBlueAccent,
-            //       activeColor: Colors.lime,
-            //     )),
-            ListTile(
-              title: Text("Current location",
-              style: TextStyle(
-              fontFamily: 'Montserrat')),
-              trailing: Icon(Icons.location_on),
-              onTap: () async {
-
-                Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-                var lat = position.latitude;
-                var long = position.longitude;
-                WorldWeather curInstance =
-                  WorldWeather(
-                    url: "lat=$lat&lon=$long&appid=$apikey");
-                await curInstance.getWeather();
-                  Weekbuilder curWeekInstance = 
-                    Weekbuilder(
-                    url: "lat=$lat&lon=$long&appid=$apikey");
-                await curWeekInstance.getWeatherWeek();
-  
-                List myInstances = [];
-                myInstances.add(curInstance);
-                myInstances.add(curWeekInstance);
-                
-                Navigator.pushNamed(
-                context, "/today", 
-                arguments: myInstances);
-              },
-            ),
-            Divider(),
-            // ListTile(
-            //   title: Text("My location 1"),
-            //   trailing: Icon(Icons.location_city),
-            // ),
-            // ListTile(
-            //   title: Text("My location 2"),
-            //   trailing: Icon(Icons.location_city),
-            // ),
-
-            ListTile(
-              title: Text("Add new location",
-              style: TextStyle(
-              fontFamily: 'Montserrat')),
-              trailing: Icon(Icons.add),
-              onTap: () {
-                Navigator.pushNamed(context, "/search");
-              },
-            ),
-          ],
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: ListView(
+          
+      //     children: drawerList
+      //   ),
+      // ),
 
       body: 
       SingleChildScrollView(
@@ -429,23 +513,26 @@ class _TodayState extends State<Today> {
                   style: TextStyle(
                               fontSize: MediaQuery.of(context).size.height * 0.025,
                               fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             )
                 ),
               ),
             ),
 
             // week overview (yes i know, need children for loop)
-            Row(
-            // figured out the loop
-              children: callMeBabyList
+            Padding(
+              padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.03,0,0,0),
+              child: Row(
+              // figured out the loop
+                children: callMeBabyList
+              ),
             )
           ]
         ),
       ),
     );
+    // makingTheDrawer();
 
-
-
-  }
+    return scaffold;
+    }  
 }

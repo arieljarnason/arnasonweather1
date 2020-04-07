@@ -5,6 +5,8 @@ INJECTED from E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\
 INJECTED from E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:1:1-30:12
 INJECTED from E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:1:1-30:12
 MERGED from E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml:1:1-30:12
+MERGED from [:path_provider] E:\----Backup box---\Docs\flutter\arnasonweather1\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider_macos] E:\----Backup box---\Docs\flutter\arnasonweather1\build\path_provider_macos\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:location] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-10:12
 MERGED from [:geolocator] E:\----Backup box---\Docs\flutter\arnasonweather1\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:location_permissions] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location_permissions\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
@@ -113,6 +115,10 @@ uses-sdk
 INJECTED from E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml
 INJECTED from E:\----Backup box---\Docs\flutter\arnasonweather1\android\app\src\main\AndroidManifest.xml
+MERGED from [:path_provider] E:\----Backup box---\Docs\flutter\arnasonweather1\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] E:\----Backup box---\Docs\flutter\arnasonweather1\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_macos] E:\----Backup box---\Docs\flutter\arnasonweather1\build\path_provider_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_macos] E:\----Backup box---\Docs\flutter\arnasonweather1\build\path_provider_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location] E:\----Backup box---\Docs\flutter\arnasonweather1\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator] E:\----Backup box---\Docs\flutter\arnasonweather1\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44

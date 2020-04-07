@@ -118,6 +118,7 @@ class _LoadingState extends State<Loading> {
     super.initState();
     // getcitylist();
     setupWorldWeather();
+    
   }
 
   @override

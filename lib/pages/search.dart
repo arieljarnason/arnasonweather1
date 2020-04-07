@@ -114,12 +114,16 @@ class _SearchState extends State<Search> {
   
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Search for city"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Search for city",
+        style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height * 0.025,
+                fontFamily: 'OpenSans',
+                letterSpacing: 1),),
         flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
                 colors: [Colors.blueGrey[200], Colors.blueGrey[900]],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
