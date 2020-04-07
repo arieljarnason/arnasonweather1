@@ -1,3 +1,4 @@
+import 'package:arnason_weather/service/weekbuilder.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_spinkit/flutter_spinkit.dart";
 import 'dart:convert';
@@ -38,11 +39,11 @@ class _LoadingState extends State<Loading> {
   // kalla á geo location, my locatoin, finna lat og long
   // https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22
 
-  print("loading keyrði");
-  Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  print(position);
-  var lat = position.latitude;
-  var long = position.longitude;
+    print("loading keyrði");
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    // print(position);
+    var lat = position.latitude;
+    var long = position.longitude;
     // WorldWeather curInstance =
     //   WorldWeather(
     //     location: "Reykjavik", 
@@ -56,16 +57,21 @@ class _LoadingState extends State<Loading> {
     url: "lat=$lat&lon=$long&appid=$apikey");
     await curInstance.getWeather();
 
-
+  Weekbuilder curWeekInstance = 
+  Weekbuilder(
+    url: "lat=$lat&lon=$long&appid=$apikey");
+    await curWeekInstance.getWeatherWeek();
+  
+  List myInstances = [];
+  myInstances.add(curInstance);
+  myInstances.add(curWeekInstance);
 // api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={your api key}
 // api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
-
-
 
   Navigator.of(context).pop();
   Navigator.pushNamed(
     context, "/today", 
-    arguments: curInstance);
+    arguments: myInstances);
 }
   // void getcitylist() async {
   //   new File('mynewfancylist.txt').readAsString().then((String contents) {

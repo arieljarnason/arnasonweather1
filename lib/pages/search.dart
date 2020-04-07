@@ -1,3 +1,4 @@
+import 'package:arnason_weather/service/weekbuilder.dart';
 import "package:flutter/material.dart";
 import "package:flutter/foundation.dart";
 
@@ -171,10 +172,20 @@ class _SearchState extends State<Search> {
                             url: "q=${items[index]}&appid=$apikey");
                         await curInstance.getWeather();
                       
+                      Weekbuilder curWeekInstance = 
+                      Weekbuilder(
+                            location: "${items[index]}",
+                            url: "q=${items[index]}&appid=$apikey");
+                        await curWeekInstance.getWeatherWeek();
+  
+                      List myInstances = [];
+                      myInstances.add(curInstance);
+                      myInstances.add(curWeekInstance);
+
                       Navigator.of(context).pop();
                       Navigator.pushNamed(
                         context, "/today", 
-                        arguments: curInstance);
+                        arguments: myInstances);
                     // }
                       // Navigator.of(context).pop();
                       // // data = getWeatherFromHere("${items[index]}");
