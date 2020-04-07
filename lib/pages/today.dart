@@ -254,7 +254,7 @@ Future<File> writeCounter(int counter) async {
               ]
             )
           ),
-          child: Text("Arnason Weather", style: TextStyle(
+          child: Text("Grey Weather App 1.0", style: TextStyle(
             fontSize: 30.0,
               fontFamily: 'Montserrat'
               )
@@ -322,24 +322,24 @@ Future<File> writeCounter(int counter) async {
           //       activeColor: Colors.lime,
           //     )),
               // Divider(),
-              drawerList.add(
-                ListTile(
-                title: Text("Add new location",
-                style: TextStyle(
-                  fontFamily: 'Montserrat'
-                  )
-                ),
-                trailing: Icon(Icons.add),
-                onTap: () {
-                  addToDrawer("bla");
+              // drawerList.add(
+              //   ListTile(
+              //   title: Text("Add new location",
+              //   style: TextStyle(
+              //     fontFamily: 'Montserrat'
+              //     )
+              //   ),
+              //   trailing: Icon(Icons.add),
+              //   onTap: () {
+              //     addToDrawer("bla");
                   // setState(() {
                   //   makingTheDrawer();
                   // });
                   // Navigator.pushNamed(context, "/search");
                   //keyra add to drawer method -----------------------------------------------
-                  },
-                )
-              ); 
+                  // },
+                // )
+              // ); 
             }//org drawer stuff ends
           }
   // method for BASE list of locations in DRAWER END -----------------------------------------
@@ -359,13 +359,13 @@ Future<File> writeCounter(int counter) async {
       Scaffold scaffold = Scaffold(
       appBar: AppBar(
         title: 
-            Text("$nowdate   ${data.name}",
+            Text("$nowdate ${data.name}",
             style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height * 0.025,
+                fontSize: MediaQuery.of(context).size.height * 0.02,
                 fontFamily: 'OpenSans',
                 letterSpacing: 1),
             ),
-        automaticallyImplyLeading: false,    
+        // automaticallyImplyLeading: false,    
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -387,12 +387,12 @@ Future<File> writeCounter(int counter) async {
         ),
       ),
 
-      // drawer: Drawer(
-      //   child: ListView(
+      drawer: Drawer(
+        child: ListView(
           
-      //     children: drawerList
-      //   ),
-      // ),
+          children: drawerList
+        ),
+      ),
 
       body: 
       SingleChildScrollView(
@@ -422,7 +422,7 @@ Future<File> writeCounter(int counter) async {
                             title: Text(
                               'Weather in ${data.name}',
                               style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.height * 0.04,
+                                fontSize: MediaQuery.of(context).size.height * 0.03,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w500,
                               )
