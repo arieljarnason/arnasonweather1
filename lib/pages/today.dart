@@ -4,13 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
-
 import 'package:arnason_weather/service/weather.dart';
 import 'package:arnason_weather/service/weekbuilder.dart';
 
-
-
-// var todayData, weekData;
 List instanceList;
 var now = new DateTime.now();
 
@@ -26,45 +22,6 @@ class _TodayState extends State<Today> {
   bool tempSwitch = true;
   bool langSwitch = false;
   Future<List> cities;
-  // bool isSearching = false;
-
-// Wierd ass flutter way of saving and reading files---------------------
-// saving my customized drawer
-
-  Future get _localPath async {
-      final directory = await getApplicationDocumentsDirectory();
-      return directory.path;
-    }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/drawer.txt');
-}
-
-Future<File> writeCounter(int counter) async {
-  final file = await _localFile;
-
-  // Write the file.
-  return file.writeAsString('$counter');
-}
-  Future<int> readCounter() async {
-    try {
-      final file = await _localFile;
-
-      // Read the file.
-      String contents = await file.readAsString();
-
-      return int.parse(contents);
-    } catch (e) {
-      // If encountering an error, return 0.
-      return 0;
-    }
-  }
-
-// Wierd ass flutter way of saving and reading files---------------------
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,27 +30,17 @@ Future<File> writeCounter(int counter) async {
 
     double paddingSizeSmall = MediaQuery.of(context).size.height * 0.01;
     double paddingSizeMed = MediaQuery.of(context).size.height * 0.02;
-    double paddingSizeMed2 = MediaQuery.of(context).size.width * 0.1;
     double paddingSizeTiny = 0.187;
 
     //passa data sé ekki empty
     // data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-    // setState(() {});
-    // data = ModalRoute.of(context).settings.arguments;
+    
     instanceList = ModalRoute.of(context).settings.arguments;
     data = instanceList[0];
     weekData = instanceList[1];
 
-
-    var location = data.location;
     String nowdate = DateFormat('EEEE, d MMM, yyyy').format(now); // prints Tuesday, 10 Dec, 2019
     // String nowDayShort = DateFormat('EEE').format(now);
-
-
-    var day1 = now.add(new Duration(days:1));
-    var day1string = day1.toString().substring(0,10);
-    // var todayString = nowstring.substring(0,10);
-    // print(day1string);
 
     // list of strings to call for info, next five days
     // both in 2020-12-24 format as well as "Tue" format
@@ -116,20 +63,20 @@ Future<File> writeCounter(int counter) async {
       var dayString = today.toString().substring(0,10);
 
       weekStrings.add(dayString);
-      // print(dayString);
       weekStringsShort.add(nowDayShort);
 
       //populate icon, temp, wind lists
-      tempWeek.add(weekData.mapOfTemp[dayString]);
-      iconWeek.add(weekData.mapOfIconUrl[dayString]);
-      windWeek.add(weekData.mapOfWind[dayString]);
-    }
-    // print(iconWeek);
-    // print(windWeek);
-    // print(tempWeek);
+      if(weekData.mapOfTemp[dayString] == null){tempWeek.add("");}
+      else{tempWeek.add(weekData.mapOfTemp[dayString]);}
 
+      if(weekData.mapOfIconUrl[dayString] == null){iconWeek.add("50n");}
+      else{iconWeek.add(weekData.mapOfIconUrl[dayString]);}
+
+      if(weekData.mapOfWind[dayString] == null){windWeek.add("");}
+      else{windWeek.add(weekData.mapOfWind[dayString]);}
+    }
     
-      //köllunaraðferð fyrir map of weekdata
+    // how to call map of 5 day forecast data
     // print(weekData.mapOfIconUrl[weekStrings[0]]);
     // print(weekData.mapOfForecasts[weekStrings[1]]);
 
@@ -137,15 +84,18 @@ Future<File> writeCounter(int counter) async {
 
 
   // method that makes week boxes START -----------------------------------------
-  // because I dont know flutter, made a seperate method for the 5 boxes i dno
-    weekMethod(
-      instanceDay,
-      instanceIcon, 
-      instanceTemp, 
-      instanceWind
-      ){
-      return Padding(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+  // because I dont know flutter, made a seperate method for the 5 boxes
+    weekMethod(instanceDay,instanceIcon,instanceTemp,instanceWind) {
+      String picUrl;
+      try{
+        picUrl = "http://openweathermap.org/img/w/$instanceIcon.png";
+      }
+      catch (e) {
+        print("Caught Error: $e");
+        picUrl = "http://openweathermap.org/img/w/50n.png";
+      }
+
+      return Expanded(
         child: Container(
           width: MediaQuery.of(context).size.width * paddingSizeTiny,
           height: MediaQuery.of(context).size.height * 0.25,
@@ -169,15 +119,16 @@ Future<File> writeCounter(int counter) async {
                   ),
                 ),
                 Center(
-                  child: new Container(
+                  child: Container(
                     width: MediaQuery.of(context).size.height * 0.07,
                     height: MediaQuery.of(context).size.height * 0.07,
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      image: new DecorationImage(
+                      image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: new NetworkImage(
-                          "http://openweathermap.org/img/w/$instanceIcon.png")
+                        
+                        image: NetworkImage(
+                          picUrl)
                         )
                       )
                     ),
@@ -188,7 +139,7 @@ Future<File> writeCounter(int counter) async {
                       child: Text(
                       "$instanceTemp C°",
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.025,
+                        fontSize: MediaQuery.of(context).size.height * 0.03,
                         fontFamily: 'OpenSans'
                       ),
                     ),
@@ -200,7 +151,7 @@ Future<File> writeCounter(int counter) async {
                       child: Text(
                       "$instanceWind m/sec",
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height * 0.025,
+                          fontSize: MediaQuery.of(context).size.height * 0.02,
                           fontFamily: 'OpenSans'
                         ),
                       ),
@@ -214,36 +165,21 @@ Future<File> writeCounter(int counter) async {
       );
     }
 
+
+  // method that calls the weekmethod week boxes START -----------------------------------------
     callMeBaby() {
       for (var i = 0; i < 5; i++){
         callMeBabyList.add(weekMethod(weekStringsShort[i], iconWeek[i], tempWeek[i], windWeek[i]));
       }
     }
+  
   // method that makes week boxes END -----------------------------------------
     callMeBaby();
 
-    addToDrawer(name){
-      print("clicked");
-      drawerList.add(
-        ListTile(
-          title: Text(
-            "name",
-            style: TextStyle(
-              fontFamily: 'Montserrat'
-              ),
-            ),
-          trailing: Icon(Icons.location_city),
-        ),
-      );
 
 
-      print(drawerList);
-    }
-  // method for BASE list of locations in DRAWER START -----------------------------------------
-
-
-    makingTheDrawer(){
     // Original drawer items:
+    makingTheDrawer(){
       if (drawerList.length < 1){
         drawerList.add(
           DrawerHeader(
@@ -267,7 +203,7 @@ Future<File> writeCounter(int counter) async {
               style: TextStyle(
               fontFamily: 'Montserrat')),
               trailing: Icon(Icons.location_on),
-              // move to another place!!!!!! ------------------
+              // move this function to another place!!!!!! ------------------
               onTap: () async {
                 Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                 var lat = position.latitude;
@@ -284,73 +220,19 @@ Future<File> writeCounter(int counter) async {
                 List myInstances = [];
                 myInstances.add(curInstance);
                 myInstances.add(curWeekInstance);
-                
+                Navigator.of(context).pop();
                 Navigator.pushNamed(
                 context, "/today", 
                 arguments: myInstances);
               },
-            // move to another place!!!!!! ------------------
+            // move to another placee END !!!!!! ------------------
             )
           );
           drawerList.add(Divider());
-          // ListTile(
-          //     title: Text("C° / F°",
-          //     style: TextStyle(
-          //     fontFamily: 'Montserrat')),
-          //     trailing: Switch(
-          //       value: tempSwitch,
-          //       onChanged: (value) {
-          //         setState(() {
-          //           tempSwitch = value;
-          //         });
-          //       },
-          //       activeTrackColor: Colors.lightBlueAccent,
-          //       activeColor: Colors.lime,
-          //     )),
-          // ListTile(
-          //     title: Text("English / Icelandic",
-          //     style: TextStyle(
-          //     fontFamily: 'Montserrat')),
-          //     trailing: Switch(
-          //       value: langSwitch,
-          //       onChanged: (value) {
-          //         setState(() {
-          //           langSwitch = value;
-          //         });
-          //       },
-          //       activeTrackColor: Colors.lightBlueAccent,
-          //       activeColor: Colors.lime,
-          //     )),
-              // Divider(),
-              // drawerList.add(
-              //   ListTile(
-              //   title: Text("Add new location",
-              //   style: TextStyle(
-              //     fontFamily: 'Montserrat'
-              //     )
-              //   ),
-              //   trailing: Icon(Icons.add),
-              //   onTap: () {
-              //     addToDrawer("bla");
-                  // setState(() {
-                  //   makingTheDrawer();
-                  // });
-                  // Navigator.pushNamed(context, "/search");
-                  //keyra add to drawer method -----------------------------------------------
-                  // },
-                // )
-              // ); 
             }//org drawer stuff ends
           }
   // method for BASE list of locations in DRAWER END -----------------------------------------
     makingTheDrawer();
-
-  // method to add to locations in DRAWER START -----------------------------------------
-
-
-  // method to add to locations in DRAWER END -----------------------------------------
-
-
 
 
   // UI START -----------------------------------------
@@ -389,7 +271,6 @@ Future<File> writeCounter(int counter) async {
 
       drawer: Drawer(
         child: ListView(
-          
           children: drawerList
         ),
       ),
@@ -409,7 +290,6 @@ Future<File> writeCounter(int counter) async {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        // Image(image: AssetImage('assets/logo1.png')),
                         Expanded(
                           child: ListTile(
                             leading: CircleAvatar(
@@ -519,20 +399,21 @@ Future<File> writeCounter(int counter) async {
               ),
             ),
 
-            // week overview (yes i know, need children for loop)
+            // WEEK FORECAST generation call
             Padding(
               padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.03,0,0,0),
               child: Row(
-              // figured out the loop
                 children: callMeBabyList
+                //don't be crazy
               ),
             )
           ]
         ),
       ),
     );
-    // makingTheDrawer();
-
-    return scaffold;
+    try{
+      return scaffold;
+    }catch (e) {
+      print("Caught Error: $e");}
     }  
 }

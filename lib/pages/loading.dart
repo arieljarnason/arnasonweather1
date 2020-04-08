@@ -1,10 +1,10 @@
-import 'package:arnason_weather/service/weekbuilder.dart';
-import 'package:flutter/material.dart';
-import "package:flutter_spinkit/flutter_spinkit.dart";
-import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:arnason_weather/service/weekbuilder.dart';
+import "package:flutter_spinkit/flutter_spinkit.dart";
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 
 import 'package:arnason_weather/service/weather.dart';
 
@@ -16,109 +16,55 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  String _res = 'Unknown';
-
-  // //api keys
-  // //temp one:
-  // String apikey = '12b6e28582eb9298577c734a31ba9f4f';
-  // //my api:
-  // //String key = '8ed0ab17ad4325bb6592a4fd43f7fc9a';
-
   void setupWorldWeather() async {
 
-  //loads list of available cities
-  await rootBundle.loadString('assets/mynewfancylist.txt').then((q){
-    for (String i in LineSplitter().convert(q)){
-      citylist.add(i);
-    }
-  });
+    //loads list of available cities (200.000 ish from openweathermap.org)
+    await rootBundle.loadString('assets/mynewfancylist.txt').then((q){
+      for (String i in LineSplitter().convert(q)){
+        citylist.add(i);
+        }
+      }
+    );
   
-  //should be current location instance
-  // later saved currently used saved instance
+    // later implement saved currently used saved instance
 
-  // kalla á geo location, my locatoin, finna lat og long
-  // https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22
-
-    print("loading keyrði");
+    // getting cur location from phone
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    // print(position);
     var lat = position.latitude;
     var long = position.longitude;
-    // WorldWeather curInstance =
-    //   WorldWeather(
-    //     location: "Reykjavik", 
-    //     url: "Reykjavik&appid=$apikey");
-    // await curInstance.getWeather();
 
+    // initalize worldweather (today info) 
+    //and weekbuilder (5 day forecast) instances
+    // api weather calls look like this for geo location:
+    // api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={your api key}
+    // and for name of city:
+    // api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
 
-  WorldWeather curInstance =
-  WorldWeather(
-    // location: "current location",
-    url: "lat=$lat&lon=$long&appid=$apikey");
-    await curInstance.getWeather();
+    WorldWeather curInstance =
+    WorldWeather(
+      url: "lat=$lat&lon=$long&appid=$apikey");
+      await curInstance.getWeather();
 
-  Weekbuilder curWeekInstance = 
-  Weekbuilder(
-    url: "lat=$lat&lon=$long&appid=$apikey");
-    await curWeekInstance.getWeatherWeek();
-  
-  List myInstances = [];
-  myInstances.add(curInstance);
-  myInstances.add(curWeekInstance);
-// api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={your api key}
-// api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
-
-  Navigator.of(context).pop();
-  Navigator.pushNamed(
-    context, "/today", 
-    arguments: myInstances);
-}
-  // void getcitylist() async {
-  //   new File('mynewfancylist.txt').readAsString().then((String contents) {
-  //     print(contents);
-  //     // citylist = contents;
-  //   });
-  // }
+    Weekbuilder curWeekInstance = 
+    Weekbuilder(
+      url: "lat=$lat&lon=$long&appid=$apikey");
+      await curWeekInstance.getWeatherWeek();
     
+    // push instances to today page
+    List myInstances = [];
+    myInstances.add(curInstance);
+    myInstances.add(curWeekInstance);
 
-      // "location": curInstance.location,
-      // "main": myinstance.main,
-      // "description": myinstance.description,
-      // "iconUrl": myinstance.iconUrl,
-      // "temp": myinstance.temp,
-      // "tempMin": myinstance.tempMin,
-      // "tempMax": myinstance.tempMax,
-      // "pressure": myinstance.pressure,
-      // "humidity": myinstance.humidity,
-      // "feelsLike": myinstance.feelsLike,
-      // "windSpeed": myinstance.windSpeed,
-      // "windDirection": myinstance.windDirection,
-      // "sunrise": myinstance.sunrise,
-      // "sunset": myinstance.sunset,
-      // "isDaytime": myinstance.isDaytime
-      // "isDaytime": myinstance.isDaytime,
-    // });
-    // Navigator.pushNamed(context, "/week");
-  
-  // setja upp instance af mínu weather object
-  //
-  //api example city name:
-  //http://api.openweathermap.org/data/2.5/weather?q=London&appid=12b6e28582eb9298577c734a31ba9f4f
-
-  // WorldTime myinstance = WorldTime(location: "London", flag: "Britain.png", url: "Europe/London");
-  // await myinstance.getTime();
-
-  // kalla á geo location, my locatoin, finna lat og long
-  // https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22
-
-  //senda instance yfir í today
-
+    Navigator.of(context).pop();
+    Navigator.pushNamed(
+      context, "/today", 
+      arguments: myInstances);
+    }
+ 
   @override
   void initState() {
     super.initState();
-    // getcitylist();
     setupWorldWeather();
-    
   }
 
   @override
@@ -126,45 +72,14 @@ class _LoadingState extends State<Loading> {
     return SafeArea(
       child: Scaffold(
           body: Column(children: <Widget>[
-        SizedBox(height: 90.0),
-        Image(image: AssetImage("assets/logo1.png"), height: 100),
-        SizedBox(height: 110.0),
-        SpinKitPulse(color: Colors.blueGrey[200]),
-        // Text(
-        //     "  Loading...",
-        //     style: TextStyle(
-        //       fontSize: 18.0,
-        //       color: Colors.blueGrey[700],
-        //     )
-        // ),
-        SizedBox(height: 10.0),
-      ])),
-    );
+            SizedBox(height: 90.0),
+            Image(image: AssetImage("assets/logo1.png"), height: 100),
+            SizedBox(height: 110.0),
+            SpinKitPulse(color: Colors.blueGrey[200]),
+            SizedBox(height: 10.0),
+          ]
+        )
+        ),
+      );
+    }
   }
-}
-// ws = new WeatherStation(apikey);
-// initPlatformState();
-// setupWeather();
-// Future<void> initPlatformState() async{
-//   quearyWeather();
-// }
-
-//fetched current weather
-// void quearyWeather() async {
-//   // ws.Location() = "Reykjavik";
-//   Weather w = await ws.currentWeather();
-//   print(ws.location.getLocation().toString());
-//   setState(() {
-//     _res = w.toString();
-//   });
-// }
-
-//makes list of 5 day weather forecast, will use in "week" tab
-// move this call somewhere else? or load here and throw away?
-
-// void quearyForecast() async {
-//   List<Weather> f = await ws.fiveDayForecast();
-//   setState(() {
-//     _res = f.toString();
-//   });
-// }
